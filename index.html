@@ -16,7 +16,14 @@
         <img src="images/Screen Shot 2022-10-02 at 7.47.13 PM.png" class="img-fluid">
         <img src="images/stonkboyz.png" class="img-fluid">
     </header>
-    <div class="input-group">
+
+    <div class="input-group" id="searchForm">
+        <div class="dropdown">
+            <select class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Type
+                <option value="Crypto">Crypto</option>
+                <option value="Crypto">Stocks</option>
+            </select>
+          </div>
         <form class="form-outline">
             <input type="search" id="form1" class="form-control" placeholder="search">
         </form>
@@ -112,6 +119,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
         crossorigin="anonymous"></script>
+    <!-- JavaScript Links -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script src="src/keys.js"></script>
     <script src="src/index.js"></script>
 </body>
