@@ -17,17 +17,15 @@
         <img src="images/stonkboyz.png" class="img-fluid">
     </header>
 
-    <div class="input-group" id="searchForm">
-        <div class="dropdown">
-            <select class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Type
+    <div class="input-group container-fluid">
+        <form class="form-inline" id="searchForm">
+            <select class="btn btn-secondary dropdown-toggle col-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Type
                 <option value="Crypto">Crypto</option>
                 <option value="Crypto">Stocks</option>
             </select>
-          </div>
-        <form class="form-outline">
-            <input type="search" id="form1" class="form-control" placeholder="search">
+            <input type="search" id="form1" class="form-control col-sm" placeholder="search">
+            <input type="submit" class="btn btn-primary col-sm" value="Search">
         </form>
-        <input type="submit" class="btn btn-primary" value="Search">
     </div>
     <div class="container-fluid col-sm-6 p-3 border bg-light">
         <table class="table table-dark">

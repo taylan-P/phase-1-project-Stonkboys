@@ -1,27 +1,22 @@
 // Search Functionality
-
 let ticker;
 const search = document.getElementById("form1");
 const searchForm = document.getElementById("searchForm")
-const prodType = document.getElementById("productType")
+const prodType = document.getElementById("dropdownMenuButton")
+let returnData
 
 searchForm.addEventListener("submit", e => {
   e.preventDefault();
-  console.log(e.target.search.value);
-  ticker = e.target.search.value;
+  console.log(e.target.form1.value);
+  debugger
+  ticker = e.target.form1.value;
   if(prodType.value === "Crypto"){
-    getPriceData(cryptoSearch, e.target.search.value);
+    getPriceData(cryptoSearch, ticker);
   } else if(prodType.value === "Stocks"){
-    getPriceData(stockSearch, e.target.search.value);
+    getPriceData(stockSearch, ticker);
   }
   getCryptoPrice(ticker)
 })
-
-function searchSymbol() {
-
-}
-
-let returnData
 
 // Get Crypto Price Info
 function getCryptoPrice(ticker) {
@@ -40,8 +35,8 @@ const secCode = document.getElementById("secCode");
 const secMarket = document.getElementById("secMarket");
 const secTime = document.getElementById("secTime");
 const secLast = document.getElementById("secLast");
-const last24hr = document.getElementById("last24hr");
-const marketcap = document.getElementById("marketcap");
+const secChange = document.getElementById("secChange");
+const marketCap = document.getElementById("marketCap");
 
 function renderCryptoInfo(){
   secName.textContent = returnData['3. Digital Currency Name'];
