@@ -1,14 +1,12 @@
-// Search Functionality
-let ticker;
+// Variable Declarations
+let ticker, returnIntraData, returnDailyData, lastRefreshed;
 const search = document.getElementById("form1");
-const searchForm = document.getElementById("searchForm")
-const prodType = document.getElementById("dropdownMenuButton")
-let returnData
+const searchForm = document.getElementById("searchForm");
+const prodType = document.getElementById("dropdownMenuButton");
 
+// Search Functionality
 searchForm.addEventListener("submit", e => {
   e.preventDefault();
-  console.log(e.target.form1.value);
-  debugger
   ticker = e.target.form1.value;
   if(prodType.value === "Crypto"){
     getPriceData(cryptoSearch, ticker);
@@ -23,9 +21,9 @@ function getCryptoPrice(ticker) {
   fetch(`https://www.alphavantage.co/query?function=CRYPTO_INTRADAY&symbol=${ticker}&market=USD&interval=5min&apikey=${apikey}`)
   .then(res => res.json())
   .then(data => {
-    returnData = data["Meta Data"];
+    returnIntraData = data;
     console.log(data["Meta Data"])
-    renderCryptoInfo()
+    renderIntraCryptoInfo()
   })
 }
 
@@ -38,14 +36,19 @@ const secLast = document.getElementById("secLast");
 const secChange = document.getElementById("secChange");
 const marketCap = document.getElementById("marketCap");
 
-function renderCryptoInfo(){
-  secName.textContent = returnData['3. Digital Currency Name'];
-  secCode.textContent = returnData['2. Digital Currency Code'];
-  secMarket.textContent = returnData['4. Market Code'];
-  secTime.textContent = returnData['6. Last Refreshed']+returnData['9. Time Zone']
-
+function renderIntraCryptoInfo(){
+  lastRefreshed = returnIntraData["Meta Data"]['6. Last Refreshed'].substring(0,10);
+  secName.textContent = returnIntraData["Meta Data"]['3. Digital Currency Name'];
+  secCode.textContent = returnIntraData["Meta Data"]['2. Digital Currency Code'];
+  secMarket.textContent = returnIntraData["Meta Data"]['4. Market Code'];
+  secTime.textContent = lastRefreshed;
 }
 
+function renderDailyCryptoInfo() {
+    secLast.textContent = returnDailyData['Time Series (Digital Currency Daily)'][lastRefreshed]['4a. close (USD)'];
+    marketCap.textContent = returnDailyData['Time Series (Digital Currency Daily)'][lastRefreshed]['6. market cap (USD):']
+    
+}
 // Get Crypto Price Data and Render Graph
 
 const cryptoIntra = "CRYPTO_INTRADAY"
@@ -57,14 +60,17 @@ function getPriceData(searchParam, ticker) {
   .then(res => res.json())
   .then(data => {
     console.log(data)
+    returnDailyData = data;
     
     const priceData = data['Time Series (Digital Currency Daily)']
-    const dates = Object.keys(priceData);
+    const dates = Object.keys(priceData).reverse();
     let closePriceArray = []
     for(const date in priceData) {
         closePriceArray.push(priceData[date]['4a. close (USD)'])
     };
+    closePriceArray.reverse();
     renderChart(dates, closePriceArray);
+    renderDailyCryptoInfo()
 });
 };
 

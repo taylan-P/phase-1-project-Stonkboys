@@ -18,48 +18,68 @@
     </header>
 
     <div class="input-group container-fluid">
-        <form class="form-inline" id="searchForm">
-            <select class="btn btn-secondary dropdown-toggle col-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Type
+
+        <form class="form-outline" id="searchForm">
+            <div class="row">
+            <div class="col-sm">
+                <select class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Type
                 <option value="Crypto">Crypto</option>
                 <option value="Crypto">Stocks</option>
             </select>
-            <input type="search" id="form1" class="form-control col-sm" placeholder="search">
-            <input type="submit" class="btn btn-primary col-sm" value="Search">
+            </div>
+            <div class="col-sm">
+                  <input type="search" id="form1" class="form-control" placeholder="search">
+            </div>
+            <div class="col-sm">
+                <input type="submit" class="btn btn-primary col-sm" value="Search">
+            </div>
+        </div>
         </form>
+
     </div>
-    <div class="container-fluid col-sm-6 p-3 border bg-light">
-        <table class="table table-dark">
-            <thead>
-                <tr>
-                    <th scope="col">Name: </th>
-                    <td id="secName"></td>
-                </tr>
-                <tr>
-                    <th scope="col">Code: </th>
-                    <td id="secCode"></td>
-                </tr>
-                <tr>
-                    <th scope="col">Time: </th>
-                    <td id="secTime"></td>
-                </tr>
-                <tr>
-                    <th scope="col">Last $ </th>
-                    <t id="secLast"></td>
-                </tr>
-                <tr>
-                    <th scope="col">↑ / ↓ </th>
-                    <td id="secChange"></td>
-                </tr>
-                <tr>
-                    <th scope="col">MarketCap: </th>
-                    <td id="marketCap"></td>
-                </tr>
-            </thead>
-        </table>
+    <div class="container-fluid p-3 border bg-light">
+        <div class="row">
+            <div class="col-sm">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name: </th>
+                            <td id="secName"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Code: </th>
+                            <td id="secCode"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Market: </th>
+                            <td id="secMarket"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Time: </th>
+                            <td id="secTime"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Last $ </th>
+                            <td id="secLast"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">↑ / ↓ </th>
+                            <td id="secChange"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">MarketCap: </th>
+                            <td id="marketCap"></td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="col-sm">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+
     </div>
-    <div class="container-fluid col-sm-6 p-3 border bg-light">
-        <canvas id="myChart"></canvas>
-    </div>
+
     <div class="container-fluid col-sm-12 p-3 border bg-dark text-light">
         <div class="col-sm-12">Mycalculator</div>
     </div>
