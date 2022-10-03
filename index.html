@@ -8,7 +8,7 @@
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <title>Document</title>
+    <title>Stonk Boyz</title>
 </head>
 
 <body>
@@ -21,6 +21,39 @@
             <input type="search" id="form1" class="form-control" placeholder="search">
         </form>
         <input type="submit" class="btn btn-primary" value="Search">
+    </div>
+    <div class="container-fluid col-sm-6 p-3 border bg-light">
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Name: </th>
+                    <td id="secName"></td>
+                </tr>
+                <tr>
+                    <th scope="col">Code: </th>
+                    <td id="secCode"></td>
+                </tr>
+                <tr>
+                    <th scope="col">Time: </th>
+                    <td id="secTime"></td>
+                </tr>
+                <tr>
+                    <th scope="col">Last $ </th>
+                    <t id="secLast"></td>
+                </tr>
+                <tr>
+                    <th scope="col">↑ / ↓ </th>
+                    <td id="secChange"></td>
+                </tr>
+                <tr>
+                    <th scope="col">MarketCap: </th>
+                    <td id="marketCap"></td>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="container-fluid col-sm-6 p-3 border bg-light">
+        <canvas id="myChart"></canvas>
     </div>
     <div class="container-fluid col-sm-12 p-3 border bg-dark text-light">
         <div class="col-sm-12">Mycalculator</div>
@@ -79,6 +112,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
         crossorigin="anonymous"></script>
+    <script src="src/keys.js"></script>
+    <script src="src/index.js"></script>
 </body>
 
 </html>
