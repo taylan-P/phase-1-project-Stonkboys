@@ -62,7 +62,8 @@ function renderCryptoInfo() {
   // Finds Yesterday 
   const today = new Date(lastRefreshed)
   const ytdy = new Date(today.getTime() - (24 * 60 * 60 * 1000))
-  const yesterday = `${ytdy.getFullYear()}-${(ytdy.getMonth()+1 < 10) ? '0' : ''}${ytdy.getMonth()+1}-${(ytdy.getUTCDate() < 10) ? '0' : ''}${ytdy.getUTCDate()}`
+  const yesterday = ytdy.toISOString().substring(0,10)
+  // const yesterday = `${ytdy.getFullYear()}-${(ytdy.getMonth()+1 < 10) ? '0' : ''}${ytdy.getMonth()+1}-${(ytdy.getUTCDate() < 10) ? '0' : ''}${ytdy.getUTCDate()}`
 
   const secYtdyPrice = parseFloat(returnDailyData['Time Series (Digital Currency Daily)'][yesterday]['4a. close (USD)'])
 
