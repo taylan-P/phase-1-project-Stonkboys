@@ -15,7 +15,7 @@ const volume = document.getElementById("volume");
 // Search Functionality
 searchForm.addEventListener("submit", e => {
   e.preventDefault();
-  if(document.getElementById("myChart").className === "active") {
+  if (document.getElementById("myChart").className === "active") {
     myChart.destroy()
   }
   ticker = e.target.form1.value;
@@ -58,14 +58,14 @@ function renderCryptoInfo() {
 
   const lastPrice = parseFloat(returnDailyData['Time Series (Digital Currency Daily)'][lastRefreshed]['4a. close (USD)']);
 
-  secLast.textContent = lastPrice.toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2});
+  secLast.textContent = lastPrice.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 });
 
   volume.textContent = parseFloat(returnDailyData['Time Series (Digital Currency Daily)'][lastRefreshed]['5. volume']).toFixed(2);
 
   // Finds Yesterday 
   const today = new Date(lastRefreshed)
   const ytdy = new Date(today.getTime() - (24 * 60 * 60 * 1000))
-  const yesterday = ytdy.toISOString().substring(0,10)
+  const yesterday = ytdy.toISOString().substring(0, 10)
   const secYtdyPrice = parseFloat(returnDailyData['Time Series (Digital Currency Daily)'][yesterday]['4a. close (USD)'])
 
   secChange.textContent = (lastPrice - secYtdyPrice).toFixed(4)
