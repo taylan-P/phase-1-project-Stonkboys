@@ -39,7 +39,7 @@
       "stonk": "BTC",
       "purchase": 10000,
       "qty": "4",
-      "last-price": "19612.04",
+      "last-price": 19612.04,
       "id": 6
     },
     {
@@ -55,6 +55,13 @@
       "qty": 4,
       "last-price": 27.36,
       "id": 8
+    },
+    {
+      "stonk": "BTC",
+      "purchase": 16000,
+      "qty": 4,
+      "last-price": null,
+      "id": 9
     }
   ]
 }
