@@ -3,42 +3,50 @@ const bottomTable = document.querySelector('#bottom-table');
 const tBody = document.querySelector('tbody');
 const deleteContainer = document.querySelector('#delete-container')
 
-//Create table
-myForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+//Load my Portfolio from db.json
+document.addEventListener('DOMContentLoaded', () => {
+    fetch("http://localhost:3000/myportfolio")
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+        data.forEach(stonk => renderPortfolio(stonk))
+    })
+    .catch(err => console.error(err))
+})
+function renderPortfolio(param) {
 
     const tr = document.createElement('tr');
 
     const stonkTable = document.createElement('td')
-    stonkTable.id = e.target.stonk.value
-    stonkTable.textContent = e.target.stonk.value
+    stonkTable.id = param.stonk
+    stonkTable.textContent = param.stonk
 
     const myPriceTable = document.createElement('td')
-    myPriceTable.textContent = parseInt(e.target.price.value).toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2})
+    myPriceTable.textContent = param.purchase
    
 
     const qtyTable = document.createElement('td')
-    qtyTable.textContent = e.target.quantity.value
+    qtyTable.textContent = param.qty
 
     const lastPrice = document.createElement('td')
-    lastPrice.textContent = parseInt(secLast.textContent).toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2})
+    lastPrice.textContent = param['last-price'].toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2})
 
     const change = document.createElement('td')
-    
-    change.textContent = (parseInt(secLast.textContent) - parseInt(e.target.price.value)).toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2})
+    change.textContent = (param['last-price'] - param.purchase).toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2})
     
     const percentChange = document.createElement('td')
-    percentChange.textContent = ((parseInt(secLast.textContent) - parseInt(e.target.price.value)) * 100 / parseInt(e.target.price.value)).toFixed(2) + " %"
+    percentChange.textContent = ((param['last-price'] - param.purchase) * 100 / param.purchase).toFixed(2) + " %"
 
     const profitTable = document.createElement('td')
-    profitTable.textContent = (parseInt(secLast.textContent) * parseInt(qtyTable.textContent) - parseInt(e.target.price.value) * parseInt(qtyTable.textContent)).toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2})
+    profitTable.textContent = ((param['last-price'] - param.purchase )* param.qty).toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2})
     function tableColor() {
-        if((parseInt(secLast.textContent) * parseInt(qtyTable.textContent) - parseInt(e.target.price.value) * parseInt(qtyTable.textContent)) < 0) {
+        if( param['last-price'] < param.purchase ) {
         return profitTable.style.color = "red"
-    } else if((parseInt(secLast.textContent) * parseInt(qtyTable.textContent) - parseInt(e.target.price.value) * parseInt(qtyTable.textContent)) > 0) {
+    } else if( param['last-price'] > param.purchase ) {
         return profitTable.style.color = "green"
     } else {
-        return profitTable.style.color = "grey"}
+        return profitTable.style.color = "grey"
+    }
     }
     tableColor()
 
@@ -47,6 +55,7 @@ myForm.addEventListener('submit', (e) => {
     deleteBtn.innerText = 'x'
     deleteBtn.style.color = "red"
     deleteBtn.addEventListener('click', () => {
+        
         tr.remove()
     })
 
@@ -74,9 +83,20 @@ myForm.addEventListener('submit', (e) => {
     tBody.append(tr)
     bottomTable.append(tBody)
 
+}
+//Create table
+myForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const stonkObj = {
+        "stonk": e.target.stonk.value,
+        "purchase": e.target.price.value,
+        "qty": e.target.quantity.value,
+        "last-price": secLast.textContent,
+    }
+    renderPortfolio(stonkObj)
 
     //Post to db.json
-    
+    const stonkTable = document.getElementById(`${e.target.stonk.value}`)
     const configObj = {
         method: 'POST',
         headers: {
@@ -85,9 +105,9 @@ myForm.addEventListener('submit', (e) => {
         },
         body: JSON.stringify({
             "stonk": stonkTable.textContent,
-            "purchase": myPriceTable.textContent,
-            "qty": qtyTable.textContent,
-            "last-price": secLast.textContent
+            "purchase": Number(e.target.price.value),
+            "qty": Number(e.target.quantity.value),
+            "last-price": Number(secLast.textContent)
         })
     }
 
