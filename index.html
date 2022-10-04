@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script defer src="form.js"></script>
-        <title>Document</title>
+    <title>Document</title>
 </head>
 
 <body>
@@ -22,19 +22,20 @@
 
         <form class="form-outline" id="searchForm">
             <div class="row">
-            <div class="col-sm">
-                <select class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Type
-                <option value="Crypto">Crypto</option>
-                <option value="Crypto">Stocks</option>
-            </select>
+                <div class="col-sm">
+                    <select class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Type
+                        <option value="Crypto">Crypto</option>
+                        <option value="Crypto">Stocks</option>
+                    </select>
+                </div>
+                <div class="col-sm">
+                    <input type="search" id="form1" class="form-control" placeholder="search">
+                </div>
+                <div class="col-sm">
+                    <input type="submit" class="btn btn-primary col-sm" value="Search">
+                </div>
             </div>
-            <div class="col-sm">
-                  <input type="search" id="form1" class="form-control" placeholder="search">
-            </div>
-            <div class="col-sm">
-                <input type="submit" class="btn btn-primary col-sm" value="Search">
-            </div>
-        </div>
         </form>
 
     </div>
@@ -88,15 +89,15 @@
         <div class="container-fluid  p-3 border-light col-sm-4 bg-dark">
             <form id="form">
                 <div class="form-group">
-                <label class ="text-light">Stonk</label>
-                <input type="text" class="form-control" id="stonk" placeholder="Enter Stonk">
+                    <label class="text-light">Stonk</label>
+                    <input type="text" class="form-control" id="stonk" placeholder="Enter Stonk">
                 </div>
                 <div class="form-group">
-                <label class ="text-light">Purchased Price</label>
-                <input type="text" class="form-control" id="price" placeholder="Enter Price">
+                    <label class="text-light">Purchased Price</label>
+                    <input type="text" class="form-control" id="price" placeholder="Enter Price">
                 </div>
                 <div class="form-group">
-                    <label class ="text-light">Quantity</label>
+                    <label class="text-light">Quantity</label>
                     <input type="text" class="form-control" id="quantity" placeholder="Enter Qty">
                 </div>
                 <button type="submit" id="submit-btn" class="btn btn-info">Evaluate</button>
@@ -106,7 +107,7 @@
             <img src="https://via.placeholder.com/250">
         </div>
     </div>
-  
+
     <div class="container-fluid col-sm-12 p-3 border bg-dark text-light">
         <div class="col-sm-12">MyPortfolio
             <button type="submit" id="refresh-btn" class="btn btn-info">Refresh</button></div>

@@ -106,3 +106,14 @@ function renderChart(xAxis, yAxis) {
 }
 
 
+
+// myCalculator for loss/gain 
+
+const form = document.getElementById('form');
+
+form.addEventListener("submit", () => {
+
+
+
+});
+
