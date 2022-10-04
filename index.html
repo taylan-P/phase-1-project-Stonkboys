@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- CSS only -->
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
-            crossorigin="anonymous">
-        <script defer src="form.js"></script>
-        <title>Document</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script defer src="form.js"></script>
+    <title>Document</title>
+</head>
 
     <body>
         <header class="container-fluid col-sm-12 p-3 border bg-dark text-light">
@@ -46,47 +43,47 @@
                 </div>
             </form>
 
-        </div>
-        <div class="container-fluid p-3 border bg-light">
-            <div class="row">
-                <div class="col-sm">
-                    <table class="table table-dark">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name: </th>
-                                <td id="secName"></td>
-                            </tr>
-                            <tr>
-                                <th scope="col">Code: </th>
-                                <td id="secCode"></td>
-                            </tr>
-                            <tr>
-                                <th scope="col">Market: </th>
-                                <td id="secMarket"></td>
-                            </tr>
-                            <tr>
-                                <th scope="col">Time: </th>
-                                <td id="secTime"></td>
-                            </tr>
-                            <tr>
-                                <th scope="col">Last $ </th>
-                                <td id="secLast"></td>
-                            </tr>
-                            <tr>
-                                <th scope="col">↑ / ↓ </th>
-                                <td id="secChange"></td>
-                            </tr>
-                            <tr>
-                                <th scope="col">MarketCap: </th>
-                                <td id="marketCap"></td>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-                <div class="col-sm">
-                    <canvas id="myChart"></canvas>
-                </div>
+    </div>
+    <div class="container-fluid p-3 border bg-light">
+        <div class="row">
+            <div class="col-sm">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name: </th>
+                            <td id="secName"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Code: </th>
+                            <td id="secCode"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Market: </th>
+                            <td id="secMarket"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Date: </th>
+                            <td id="secTime"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Last $ </th>
+                            <td id="secLast"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">↑ / ↓ </th>
+                            <td id="secChange"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Volume: </th>
+                            <td id="volume"></td>
+                        </tr>
+                    </thead>
+                </table>
             </div>
+            <div class="col-sm">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
 
         </div>
 

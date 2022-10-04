@@ -57,4 +57,14 @@ myForm.addEventListener('submit', (e) => {
 
     myForm.reset();
 
+    
+
+})
+
+const refresh = document.getElementById("refresh-btn");
+
+refresh.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const stonkID = document.getElementById("")
 })
