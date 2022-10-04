@@ -1,5 +1,5 @@
 // Variable Declarations
-let ticker, returnDailyData, lastRefreshed, myChart;
+let ticker, returnDailyData, lastRefreshed, myChart, cryptoPrice;
 const search = document.getElementById("form1");
 const searchForm = document.getElementById("searchForm");
 const prodType = document.getElementById("dropdownMenuButton");
@@ -58,7 +58,8 @@ function renderCryptoInfo() {
 
   const lastPrice = parseFloat(returnDailyData['Time Series (Digital Currency Daily)'][lastRefreshed]['4a. close (USD)']);
 
-  secLast.textContent = lastPrice.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 });
+  cryptoPrice = lastPrice;
+  secLast.textContent = lastPrice.toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2});
 
   volume.textContent = parseFloat(returnDailyData['Time Series (Digital Currency Daily)'][lastRefreshed]['5. volume']).toFixed(2);
 

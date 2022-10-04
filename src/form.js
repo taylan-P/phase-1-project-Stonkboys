@@ -87,11 +87,12 @@ function renderPortfolio(param) {
 //Create table
 myForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    debugger;
     const stonkObj = {
         "stonk": e.target.stonk.value,
         "purchase": e.target.price.value,
         "qty": e.target.quantity.value,
-        "last-price": secLast.textContent,
+        "last-price": cryptoPrice,
     }
     renderPortfolio(stonkObj)
 
@@ -107,7 +108,7 @@ myForm.addEventListener('submit', (e) => {
             "stonk": e.target.stonk.value,
             "purchase": Number(e.target.price.value),
             "qty": Number(e.target.quantity.value),
-            "last-price": Number(secLast.textContent)
+            "last-price": cryptoPrice
         })
     }
 
