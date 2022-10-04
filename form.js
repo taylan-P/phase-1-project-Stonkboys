@@ -3,12 +3,14 @@ const bottomTable = document.querySelector('#bottom-table');
 const tBody = document.querySelector('tbody');
 const deleteContainer = document.querySelector('#delete-container')
 
+//Create table
 myForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
     const tr = document.createElement('tr');
 
     const stonkTable = document.createElement('td')
+    stonkTable.id = e.target.stonk.value
     stonkTable.textContent = e.target.stonk.value
 
     const myPriceTable = document.createElement('td')
@@ -47,24 +49,55 @@ myForm.addEventListener('submit', (e) => {
     deleteBtn.addEventListener('click', () => {
         tr.remove()
     })
-    
 
-    tr.append(stonkTable, myPriceTable, qtyTable, lastPrice, change, percentChange, profitTable, deleteBtn)
+    const refresh = document.createElement('button');
+    refresh.className = "btn btn-info"
+    refresh.innerText = "Refresh"
+    refresh.addEventListener('click', (e) => {
+        e.preventDefault()
+        ticker = stonkTable.id
+        fetch(`https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=${ticker}&market=USD&apikey=${apikey}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            lastPrice.textContent = data['Time Series (Digital Currency Daily)'][lastRefreshed]['4a. close (USD)']
+            
+        })
+
+        // lastPrice.textContent = parseInt(secLast.textContent).toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2})
+        
+
+
+    })
+
+    tr.append(stonkTable, myPriceTable, qtyTable, lastPrice, change, percentChange, profitTable, deleteBtn, refresh)
     tBody.append(tr)
     bottomTable.append(tBody)
-    
 
+
+    //Post to db.json
+    
+    const configObj = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+        },
+        body: JSON.stringify({
+            "stonk": stonkTable.textContent,
+            "purchase": myPriceTable.textContent,
+            "qty": qtyTable.textContent,
+            "last-price": secLast.textContent
+        })
+    }
+
+
+    fetch("http://localhost:3000/myportfolio/", configObj)
+    .then(res => res.json())
+    .then(console.log)
 
     myForm.reset();
 
-    
-
 })
 
-const refresh = document.getElementById("refresh-btn");
 
-refresh.addEventListener("submit", e => {
-    e.preventDefault();
-
-    const stonkID = document.getElementById("")
-})

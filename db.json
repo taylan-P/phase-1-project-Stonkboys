@@ -1,10 +1,39 @@
 {
-    "myportfolio": [
-        {
-            "id": 1,
-            "stonk": "BTC",
-            "purchase": 16000,
-            "qty": 1
-        }
-    ]
+  "myportfolio": [
+    {
+      "stonk": "BTC",
+      "purchase": "$14,000.00",
+      "qty": "2",
+      "last-price": "19612.04",
+      "id": 1
+    },
+    {
+      "stonk": "ETH",
+      "purchase": "$800.00",
+      "qty": "50",
+      "last-price": "1323.85",
+      "id": 2
+    },
+    {
+      "stonk": "SOL",
+      "purchase": "$60.00",
+      "qty": "100",
+      "last-price": "32.95",
+      "id": 3
+    },
+    {
+      "stonk": "BTC",
+      "purchase": "$14,000.00",
+      "qty": "10",
+      "last-price": "19612.04",
+      "id": 4
+    },
+    {
+      "stonk": "ETH",
+      "purchase": "$1,000.00",
+      "qty": "50",
+      "last-price": "1323.85",
+      "id": 5
+    }
+  ]
 }
