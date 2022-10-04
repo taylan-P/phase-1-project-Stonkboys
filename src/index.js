@@ -25,6 +25,7 @@ function getCryptoPrice(ticker) {
     console.log(data["Meta Data"])
     renderIntraCryptoInfo()
   })
+  .catch(err => console.error(err))
 }
 
 // Render Crypto Info
@@ -34,7 +35,7 @@ const secMarket = document.getElementById("secMarket");
 const secTime = document.getElementById("secTime");
 const secLast = document.getElementById("secLast");
 const secChange = document.getElementById("secChange");
-const marketCap = document.getElementById("marketCap");
+const volume = document.getElementById("volume");
 
 function renderIntraCryptoInfo(){
   lastRefreshed = returnIntraData["Meta Data"]['6. Last Refreshed'].substring(0,10);
@@ -45,8 +46,8 @@ function renderIntraCryptoInfo(){
 }
 
 function renderDailyCryptoInfo() {
-    secLast.textContent = returnDailyData['Time Series (Digital Currency Daily)'][lastRefreshed]['4a. close (USD)'];
-    marketCap.textContent = returnDailyData['Time Series (Digital Currency Daily)'][lastRefreshed]['6. market cap (USD):']
+    secLast.textContent = parseFloat(returnDailyData['Time Series (Digital Currency Daily)'][lastRefreshed]['4a. close (USD)']);
+    volume.textContent = parseFloat(returnDailyData['Time Series (Digital Currency Daily)'][lastRefreshed]['5. volume']);
     
 }
 // Get Crypto Price Data and Render Graph
@@ -71,7 +72,8 @@ function getPriceData(searchParam, ticker) {
     closePriceArray.reverse();
     renderChart(dates, closePriceArray);
     renderDailyCryptoInfo()
-});
+})
+.catch(err => console.error(err));
 };
 
 const rand1 = Math.floor(255*Math.random())

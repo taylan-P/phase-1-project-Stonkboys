@@ -44,9 +44,10 @@ myForm.addEventListener('submit', (e) => {
     profitObj.stonk = e.target.stonk.value;
     profitObj.purchase = e.target.price.value;
     profitObj.qty = e.target.quantity.value;
-
     
     myForm.reset();
+
+    
 
 })
 
