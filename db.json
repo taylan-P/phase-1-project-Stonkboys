@@ -1,10 +1,22 @@
 {
-    "myportfolio": [
-        {
-            "id": 1,
-            "stonk": "BTC",
-            "purchase": 16000,
-            "qty": 1
-        }
-    ]
+  "myportfolio": [
+    {
+      "id": 1,
+      "stonk": "BTC",
+      "purchase": 16000,
+      "qty": 1
+    },
+    {
+      "stonk": "ETH",
+      "purchase": 2000,
+      "qty": 3,
+      "id": 2
+    },
+    {
+      "stonk": "ETH",
+      "purchase": 2000,
+      "qty": 3,
+      "id": 3
+    }
+  ]
 }
