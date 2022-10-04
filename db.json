@@ -1,0 +1,10 @@
+{
+    "myportfolio": [
+        {
+            "id": 1,
+            "stonk": "BTC",
+            "purchase": 16000,
+            "qty": 1
+        }
+    ]
+}

@@ -1,8 +1,16 @@
 // Variable Declarations
-let ticker, returnIntraData, returnDailyData, lastRefreshed;
+let ticker, returnDailyData, lastRefreshed;
 const search = document.getElementById("form1");
 const searchForm = document.getElementById("searchForm");
 const prodType = document.getElementById("dropdownMenuButton");
+const cryptoSearch = "DIGITAL_CURRENCY_DAILY"
+const secName = document.getElementById("secName");
+const secCode = document.getElementById("secCode");
+const secMarket = document.getElementById("secMarket");
+const secTime = document.getElementById("secTime");
+const secLast = document.getElementById("secLast");
+const secChange = document.getElementById("secChange");
+const volume = document.getElementById("volume");
 
 // Search Functionality
 searchForm.addEventListener("submit", e => {
@@ -11,49 +19,9 @@ searchForm.addEventListener("submit", e => {
   if (prodType.value === "Crypto") {
     getPriceData(cryptoSearch, ticker);
   } else if (prodType.value === "Stocks") {
-    getPriceData(stockSearch, ticker);
+    getPriceData(stockSearch, ticker); // Have not yet coded stock functionality
   }
-  getCryptoPrice(ticker)
 })
-
-// Get Crypto Price Info
-function getCryptoPrice(ticker) {
-  fetch(`https://www.alphavantage.co/query?function=CRYPTO_INTRADAY&symbol=${ticker}&market=USD&interval=5min&apikey=${apikey}`)
-    .then(res => res.json())
-    .then(data => {
-      returnIntraData = data;
-      console.log(data["Meta Data"])
-      renderIntraCryptoInfo()
-    })
-}
-
-// Render Crypto Info
-const secName = document.getElementById("secName");
-const secCode = document.getElementById("secCode");
-const secMarket = document.getElementById("secMarket");
-const secTime = document.getElementById("secTime");
-const secLast = document.getElementById("secLast");
-const secChange = document.getElementById("secChange");
-const marketCap = document.getElementById("marketCap");
-
-function renderIntraCryptoInfo() {
-  lastRefreshed = returnIntraData["Meta Data"]['6. Last Refreshed'].substring(0, 10);
-  secName.textContent = returnIntraData["Meta Data"]['3. Digital Currency Name'];
-  secCode.textContent = returnIntraData["Meta Data"]['2. Digital Currency Code'];
-  secMarket.textContent = returnIntraData["Meta Data"]['4. Market Code'];
-  secTime.textContent = lastRefreshed;
-}
-
-function renderDailyCryptoInfo() {
-  secLast.textContent = returnDailyData['Time Series (Digital Currency Daily)'][lastRefreshed]['4a. close (USD)'];
-  marketCap.textContent = returnDailyData['Time Series (Digital Currency Daily)'][lastRefreshed]['6. market cap (USD):']
-
-}
-// Get Crypto Price Data and Render Graph
-
-const cryptoIntra = "CRYPTO_INTRADAY"
-const cryptoSearch = "DIGITAL_CURRENCY_DAILY"
-const stockSearch = "TIME_SERIES_DAILY"
 
 function getPriceData(searchParam, ticker) {
   fetch(`https://www.alphavantage.co/query?function=${searchParam}&symbol=${ticker}&market=USD&apikey=${apikey}`)
@@ -61,6 +29,9 @@ function getPriceData(searchParam, ticker) {
     .then(data => {
       console.log(data)
       returnDailyData = data;
+      lastRefreshed = returnDailyData['Meta Data']['6. Last Refreshed'].substring(0,10)
+
+      renderCryptoInfo(data)
 
       const priceData = data['Time Series (Digital Currency Daily)']
       const dates = Object.keys(priceData).reverse();
@@ -70,10 +41,37 @@ function getPriceData(searchParam, ticker) {
       };
       closePriceArray.reverse();
       renderChart(dates, closePriceArray);
-      renderDailyCryptoInfo()
-    });
+
+    })
+    .catch(err => console.error(err));
 };
 
+function renderCryptoInfo() {
+  lastRefreshed = returnDailyData["Meta Data"]['6. Last Refreshed'].substring(0, 10)
+  secName.textContent = returnDailyData["Meta Data"]['3. Digital Currency Name'];
+  secCode.textContent = returnDailyData["Meta Data"]['2. Digital Currency Code'];
+  secMarket.textContent = returnDailyData["Meta Data"]['4. Market Code']
+  secTime.textContent = lastRefreshed
+
+  const lastPrice = parseFloat(returnDailyData['Time Series (Digital Currency Daily)'][lastRefreshed]['4a. close (USD)'])
+
+  secLast.textContent = lastPrice;
+
+  volume.textContent = parseFloat(returnDailyData['Time Series (Digital Currency Daily)'][lastRefreshed]['5. volume']);
+
+  // Finds Yesterday 
+  const today = new Date(lastRefreshed)
+  const ytdy = new Date(today.getTime() - (24 * 60 * 60 * 1000))
+  const yesterday = ytdy.toISOString().substring(0,10)
+  // const yesterday = `${ytdy.getFullYear()}-${(ytdy.getMonth()+1 < 10) ? '0' : ''}${ytdy.getMonth()+1}-${(ytdy.getUTCDate() < 10) ? '0' : ''}${ytdy.getUTCDate()}`
+
+  const secYtdyPrice = parseFloat(returnDailyData['Time Series (Digital Currency Daily)'][yesterday]['4a. close (USD)'])
+
+  secChange.textContent = (lastPrice - secYtdyPrice).toFixed(4)
+
+}
+
+// Random Color Generator
 const rand1 = Math.floor(255 * Math.random())
 const rand2 = Math.floor(255 * Math.random())
 const rand3 = Math.floor(255 * Math.random())
@@ -82,6 +80,7 @@ function randomColor() {
   return `rgb(${rand1}, ${rand2}, ${rand3})`
 }
 
+// Render Graph 
 function renderChart(xAxis, yAxis) {
 
   const data = {
