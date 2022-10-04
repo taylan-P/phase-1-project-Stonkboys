@@ -1,13 +1,6 @@
 {
   "myportfolio": [
     {
-      "stonk": "BTC",
-      "purchase": 14000,
-      "qty": 2,
-      "last-price": 19612.04,
-      "id": 1
-    },
-    {
       "stonk": "ETH",
       "purchase": 800,
       "qty": 50,
@@ -22,10 +15,10 @@
       "id": 3
     },
     {
-      "stonk": "SOL",
-      "purchase": 45.5,
-      "qty": 123,
-      "last-price": 32.95,
+      "stonk": "ETC",
+      "purchase": 28,
+      "qty": 90,
+      "last-price": 27.36,
       "id": 4
     }
   ]
