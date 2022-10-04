@@ -17,23 +17,32 @@ myForm.addEventListener('submit', (e) => {
     qtyTable.textContent = e.target.quantity.value
 
     const lastPrice = document.createElement('td')
-    lastPrice.textContent = "Last price"
+    lastPrice.textContent = parseInt(secLast.textContent).toFixed(2)
 
     const change = document.createElement('td')
-    change.textContent = "Last price - Purchase price"
+    change.textContent = parseInt(secLast.textContent - myPriceTable.textContent).toFixed(2)
 
     const percentChange = document.createElement('td')
-    percentChange.textContent = "%"
+    percentChange.textContent = parseInt((change.textContent) * 100 / myPriceTable.textContent).toFixed(2) + " %"
 
     const profitTable = document.createElement('td')
-    profitTable.textContent = "Profit or Loss"
+    profitTable.textContent = parseInt((secLast.textContent) * (qtyTable.textContent) - (myPriceTable.textContent) * (qtyTable.textContent)).toFixed(2)
+    function tableColor() {
+        if(profitTable.textContent < 0) {
+        return profitTable.style.color = "red"
+    } else if(profitTable.textContent > 0) {
+        return profitTable.style.color = "green"
+    } else {
+        return profitTable.style.color = "grey"}
+    }
+    tableColor()
 
     tr.append(stonkTable, myPriceTable, qtyTable, lastPrice, change, percentChange, profitTable)
     tBody.append(tr)
     bottomTable.append(tBody)
     
 
-    
+
     myForm.reset();
 
 })
