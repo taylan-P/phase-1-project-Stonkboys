@@ -32,7 +32,7 @@ function getPriceData(searchParam, ticker) {
     .then(data => {
       console.log(data)
       returnDailyData = data;
-      lastRefreshed = returnDailyData['Meta Data']['6. Last Refreshed'].substring(0,10)
+      lastRefreshed = returnDailyData['Meta Data']['6. Last Refreshed'].substring(0, 10)
 
       renderCryptoInfo(data)
 
@@ -109,12 +109,49 @@ function renderChart(xAxis, yAxis) {
 
 
 
-// myCalculator for loss/gain 
+//happy 
 
-const form = document.getElementById('form');
+const happyMemeArray = [
+  {
+    name: "Wall Street Bets",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqOBdQojktUASuWZyuFK8klyfaXk5MSjlPCA&usqp=CAU"
+  },
+  {
+    name: "Jonah Hill",
+    image: "https://www.happierhuman.com/wp-content/uploads/2022/04/happy-memes-winkgo-oh-my-god.jpg"
+  },
+  {
+    name: "Opray",
+    image: "https://imgflip.com/s/meme/Oprah-You-Get-A.jpg"
+  },
+  {
+    name: "Obama",
+    image: "https://i.imgflip.com/6vq4y2.jpg"
+  }
+]
 
-form.addEventListener("submit", () => {
+let displayHappyMemes = happyMemeArray[Math.floor(Math.random() * happyMemeArray.length)];
+console.log(happyMemeArray.image);
 
+//sad
+const sadMemeArray = [
+  {
+    name: "Toy Story",
+    image: "https://imgflip.com/i/6vq14h"
+  },
+  {
+    name: "Tom the Cat",
+    image: "https://i.imgflip.com/6vq48z.jpg"
+  },
+  {
+    name: "Shooting yourself",
+    image: "https://i.imgflip.com/6vq5h5.jpg"
+  },
+  {
+    name: "Spongebob",
+    image: "https://pbs.twimg.com/media/EDJP9uVU0AArmSL?format=jpg&name=small"
+  }
+]
 
+let displaySadMemes = happyMemeArray[Math.floor(Math.random() * happyMemeArray.length)];
 
-});
