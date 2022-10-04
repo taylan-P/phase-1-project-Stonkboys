@@ -57,11 +57,18 @@
       "id": 8
     },
     {
-      "stonk": "BTC",
-      "purchase": 16000,
-      "qty": 4,
-      "last-price": null,
+      "stonk": "SOL",
+      "purchase": 29,
+      "qty": 15,
+      "last-price": 32.95,
       "id": 9
+    },
+    {
+      "stonk": "BTC",
+      "purchase": 14000,
+      "qty": 5,
+      "last-price": 19612.04,
+      "id": 10
     }
   ]
 }

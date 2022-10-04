@@ -96,6 +96,7 @@ myForm.addEventListener('submit', (e) => {
     renderPortfolio(stonkObj)
 
     //Post to db.json
+    //const stonkTable = document.getElementById(`${e.target.stonk.value}`)
     const configObj = {
         method: 'POST',
         headers: {
