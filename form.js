@@ -1,14 +1,7 @@
 const myForm = document.querySelector('#form');
 const bottomTable = document.querySelector('#bottom-table');
 const tBody = document.querySelector('tbody');
-const profitObj = {
-    stonk: "stonk",
-    purchase: 0,
-    qty: 0,
-    lastprice: 0,
-    change: 0,
-    profit: 0
-}
+const deleteContainer = document.querySelector('#delete-container')
 
 myForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -17,34 +10,51 @@ myForm.addEventListener('submit', (e) => {
 
     const stonkTable = document.createElement('td')
     stonkTable.textContent = e.target.stonk.value
-    stonkTable.id = e.target.stonk.value
 
     const myPriceTable = document.createElement('td')
-    myPriceTable.textContent = e.target.price.value
+    myPriceTable.textContent = parseInt(e.target.price.value).toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2})
+   
 
     const qtyTable = document.createElement('td')
     qtyTable.textContent = e.target.quantity.value
 
     const lastPrice = document.createElement('td')
-    lastPrice.textContent = "Last price"
+    lastPrice.textContent = parseInt(secLast.textContent).toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2})
 
     const change = document.createElement('td')
-    change.textContent = "Last price - Purchase price"
-
+    
+    change.textContent = (parseInt(secLast.textContent) - parseInt(e.target.price.value)).toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2})
+    
     const percentChange = document.createElement('td')
-    percentChange.textContent = "%"
+    percentChange.textContent = ((parseInt(secLast.textContent) - parseInt(e.target.price.value)) * 100 / parseInt(e.target.price.value)).toFixed(2) + " %"
 
     const profitTable = document.createElement('td')
-    profitTable.textContent = "Profit or Loss"
+    profitTable.textContent = (parseInt(secLast.textContent) * parseInt(qtyTable.textContent) - parseInt(e.target.price.value) * parseInt(qtyTable.textContent)).toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2})
+    function tableColor() {
+        if((parseInt(secLast.textContent) * parseInt(qtyTable.textContent) - parseInt(e.target.price.value) * parseInt(qtyTable.textContent)) < 0) {
+        return profitTable.style.color = "red"
+    } else if((parseInt(secLast.textContent) * parseInt(qtyTable.textContent) - parseInt(e.target.price.value) * parseInt(qtyTable.textContent)) > 0) {
+        return profitTable.style.color = "green"
+    } else {
+        return profitTable.style.color = "grey"}
+    }
+    tableColor()
 
-    tr.append(stonkTable, myPriceTable, qtyTable, lastPrice, change, percentChange, profitTable)
+    const deleteBtn = document.createElement('button')
+    deleteBtn.className="btn btn-warning"
+    deleteBtn.innerText = 'x'
+    deleteBtn.style.color = "red"
+    deleteBtn.addEventListener('click', () => {
+        tr.remove()
+    })
+    
+
+    tr.append(stonkTable, myPriceTable, qtyTable, lastPrice, change, percentChange, profitTable, deleteBtn)
     tBody.append(tr)
     bottomTable.append(tBody)
     
-    profitObj.stonk = e.target.stonk.value;
-    profitObj.purchase = e.target.price.value;
-    profitObj.qty = e.target.quantity.value;
-    
+
+
     myForm.reset();
 
     

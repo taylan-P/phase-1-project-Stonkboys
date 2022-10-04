@@ -12,31 +12,36 @@
     <title>Document</title>
 </head>
 
-<body>
-    <header class="container-fluid col-sm-12 p-3 border bg-dark text-light">
-        <img src="images/Screen Shot 2022-10-02 at 7.47.13 PM.png" width="50" height="" class="img-fluid">
-        <img src="images/stonkboyz.png" class="img-fluid">
-    </header>
+    <body>
+        <header class="container-fluid col-sm-12 p-3 border bg-dark text-light">
+            <img src="images/Screen Shot 2022-10-02 at 7.47.13 PM.png"
+                width="50" height="" class="img-fluid">
+            <img src="images/stonkboyz.png" class="img-fluid">
+        </header>
 
-    <div class="input-group container-fluid">
+        <div class="input-group container-fluid">
 
-        <form class="form-outline" id="searchForm">
-            <div class="row">
-                <div class="col-sm">
-                    <select class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Type
-                        <option value="Crypto">Crypto</option>
-                        <option value="Crypto">Stocks</option>
-                    </select>
+            <form class="form-outline" id="searchForm">
+                <div class="row">
+                    <div class="col-sm">
+                        <select class="btn btn-secondary dropdown-toggle"
+                            type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">Type
+                            <option value="Crypto">Crypto</option>
+                            <option value="Crypto">Stocks</option>
+                        </select>
+                    </div>
+                    <div class="col-sm">
+                        <input type="search" id="form1" class="form-control"
+                            placeholder="search">
+                    </div>
+                    <div class="col-sm">
+                        <input type="submit" class="btn btn-primary col-sm"
+                            value="Search">
+                    </div>
                 </div>
-                <div class="col-sm">
-                    <input type="search" id="form1" class="form-control" placeholder="search">
-                </div>
-                <div class="col-sm">
-                    <input type="submit" class="btn btn-primary col-sm" value="Search">
-                </div>
-            </div>
-        </form>
+            </form>
 
     </div>
     <div class="container-fluid p-3 border bg-light">
@@ -80,74 +85,71 @@
             </div>
         </div>
 
-    </div>
-
-    <div class="container-fluid col-sm-12 p-3 border bg-dark text-light">
-        <div class="col-sm-12">MyCalculator</div>
-    </div>
-    <div class="row bg-dark">
-        <div class="container-fluid  p-3 border-light col-sm-4 bg-dark">
-            <form id="form">
-                <div class="form-group">
-                    <label class="text-light">Stonk</label>
-                    <input type="text" class="form-control" id="stonk" placeholder="Enter Stonk">
-                </div>
-                <div class="form-group">
-                    <label class="text-light">Purchased Price</label>
-                    <input type="text" class="form-control" id="price" placeholder="Enter Price">
-                </div>
-                <div class="form-group">
-                    <label class="text-light">Quantity</label>
-                    <input type="text" class="form-control" id="quantity" placeholder="Enter Qty">
-                </div>
-                <button type="submit" id="submit-btn" class="btn btn-info">Evaluate</button>
-            </form>
         </div>
-        <div class="container p-3 border-light col-sm-3">
-            <img src="https://via.placeholder.com/250">
-        </div>
-    </div>
 
-    <div class="container-fluid col-sm-12 p-3 border bg-dark text-light">
-        <div class="col-sm-12">MyPortfolio
-            <button type="submit" id="refresh-btn" class="btn btn-info">Refresh</button></div>
-    </div>
-    <div class="container-fluid col-sm-12 ">
-        <table class="table">
-            <div class="col-sm-12">
-                <th>Stonk</th>
-                <th>Purchase Price</th>
-                <th>Qty</th>
-                <th>Last $</th>
-                <th>Change $</th>
-                <th>Change %</th>
-                <th>Profit/Loss</th>
+        <div class="container-fluid col-sm-12 p-3 border bg-dark text-light">
+            <div class="col-sm-12">MyCalculator</div>
+        </div>
+        <div class="row bg-dark">
+            <div class="container-fluid p-3 border-light col-sm-4 bg-dark">
+                <form id="form">
+                    <div class="form-group">
+                        <label class="text-light">Stonk</label>
+                        <input type="text" class="form-control" id="stonk"
+                            placeholder="Enter Stonk">
+                    </div>
+                    <div class="form-group">
+                        <label class="text-light">Purchased Price</label>
+                        <input type="text" class="form-control" id="price"
+                            placeholder="Enter Price">
+                    </div>
+                    <div class="form-group">
+                        <label class="text-light">Quantity</label>
+                        <input type="text" class="form-control" id="quantity"
+                            placeholder="Enter Qty">
+                    </div>
+                    <button type="submit" id="submit-btn" class="btn btn-info">Evaluate</button>
+                </form>
             </div>
-            <tr>
-                <td id="stonk-table"></td>
-                <td id="price-table"></td>
-                <td id="qty-table"></td>
-                <td id="last-price-table"></td>
-                <td id="change-table"></td>
-                <td id="change-percent-table"></td>
-                <td id="profit-table"></td>
-            </tr>
-        </table>
-    </div>
-    <footer class="container-fluid col-sm-12 p-3 border bg-dark text-light">
-        <div class="col-sm-12">Footer</div>
-    </footer>
+            <div class="container p-3 border-light col-sm-3">
+                <img src="https://via.placeholder.com/250">
+            </div>
+        </div>
+
+        <div class="container-fluid col-sm-12 p-3 border bg-dark text-light">
+            <div class="col-sm-12">MyPortfolio</div>
+        </div>
+        <div class="container-fluid col-sm-12 ">
+            <table id="bottom-table" class="table">
+                <tbody>
+                <tr>
+                    <th>Stonk</th>
+                    <th>Purchase Price</th>
+                    <th>Qty</th>
+                    <th>Last $</th>
+                    <th>Change $</th>
+                    <th>Change %</th>
+                    <th>Profit/Loss</th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer class="container-fluid col-sm-12 p-3 border bg-dark text-light">
+            <div class="col-sm-12">Footer</div>
+        </footer>
 
 
 
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-        crossorigin="anonymous"></script>
-    <!-- JavaScript Links -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    <script src="key/keys.js"></script>
-    <script src="src/index.js"></script>
-</body>
+        <!-- JavaScript Bundle with Popper -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+            crossorigin="anonymous"></script>
+        <!-- JavaScript Links -->
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+        <script src="key/keys.js"></script>
+        <script src="src/index.js"></script>
+    </body>
 
 </html>
