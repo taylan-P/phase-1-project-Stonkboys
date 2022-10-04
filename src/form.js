@@ -96,7 +96,7 @@ myForm.addEventListener('submit', (e) => {
     renderPortfolio(stonkObj)
 
     //Post to db.json
-    const stonkTable = document.getElementById(`${e.target.stonk.value}`)
+    //const stonkTable = document.getElementById(`${e.target.stonk.value}`)
     const configObj = {
         method: 'POST',
         headers: {
@@ -104,7 +104,7 @@ myForm.addEventListener('submit', (e) => {
             Accept: "application/json"
         },
         body: JSON.stringify({
-            "stonk": stonkTable.textContent,
+            "stonk": e.target.stonk.value,
             "purchase": Number(e.target.price.value),
             "qty": Number(e.target.quantity.value),
             "last-price": Number(secLast.textContent)
