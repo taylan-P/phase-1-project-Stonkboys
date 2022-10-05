@@ -1,5 +1,5 @@
 // Variable Declarations
-let ticker, returnDailyData, lastRefreshed, myChart;
+let ticker, returnDailyData, lastRefreshed, myChart, cryptoPrice;
 const search = document.getElementById("form1");
 const searchForm = document.getElementById("searchForm");
 const prodType = document.getElementById("dropdownMenuButton");
@@ -11,6 +11,9 @@ const secTime = document.getElementById("secTime");
 const secLast = document.getElementById("secLast");
 const secChange = document.getElementById("secChange");
 const volume = document.getElementById("volume");
+const upStr = '\u{021E7}';
+const downStr = '\u{021E9}';
+const memeImage = document.getElementById("meme-img");
 
 // Search Functionality
 searchForm.addEventListener("submit", e => {
@@ -24,6 +27,7 @@ searchForm.addEventListener("submit", e => {
   } else if (prodType.value === "Stocks") {
     getPriceData(stockSearch, ticker); // Have not yet coded stock functionality
   }
+  generateMeme()
 })
 
 function getPriceData(searchParam, ticker) {
@@ -58,17 +62,21 @@ function renderCryptoInfo() {
 
   const lastPrice = parseFloat(returnDailyData['Time Series (Digital Currency Daily)'][lastRefreshed]['4a. close (USD)']);
 
+  cryptoPrice = lastPrice;
   secLast.textContent = lastPrice.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 });
 
   volume.textContent = parseFloat(returnDailyData['Time Series (Digital Currency Daily)'][lastRefreshed]['5. volume']).toFixed(2);
 
   // Finds Yesterday 
-  const today = new Date(lastRefreshed)
-  const ytdy = new Date(today.getTime() - (24 * 60 * 60 * 1000))
-  const yesterday = ytdy.toISOString().substring(0, 10)
-  const secYtdyPrice = parseFloat(returnDailyData['Time Series (Digital Currency Daily)'][yesterday]['4a. close (USD)'])
-
-  secChange.textContent = (lastPrice - secYtdyPrice).toFixed(4)
+  const today = new Date(lastRefreshed);
+  const ytdy = new Date(today.getTime() - (24 * 60 * 60 * 1000));
+  const yesterday = ytdy.toISOString().substring(0, 10);
+  const secYtdyPrice = parseFloat(returnDailyData['Time Series (Digital Currency Daily)'][yesterday]['4a. close (USD)']);
+  let arrow;
+  lastPrice > secYtdyPrice ? arrow = upStr : arrow = downStr;
+  secChange.textContent = `${arrow}` + Math.abs((lastPrice - secYtdyPrice).toFixed(4));
+  secChange.style.color = (lastPrice > secYtdyPrice) ? "green" : "red";
+  secChange.dataset.value = (lastPrice >= secYtdyPrice) ? "pos" : "neg";
 
 }
 

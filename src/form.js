@@ -20,6 +20,7 @@ function renderPortfolio(param) {
     const stonkTable = document.createElement('td')
     stonkTable.id = param.stonk
     stonkTable.textContent = param.stonk
+    stonkTable.dataset.id = param.id
 
     const myPriceTable = document.createElement('td')
     myPriceTable.textContent = param.purchase
@@ -28,8 +29,8 @@ function renderPortfolio(param) {
     const qtyTable = document.createElement('td')
     qtyTable.textContent = param.qty
 
-    const lastPrice = document.createElement('td')
-    lastPrice.textContent = param['last-price'].toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 })
+    const lastPriceTable = document.createElement('td')
+    lastPriceTable.textContent = param['last-price'].toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 })
 
     const change = document.createElement('td')
     change.textContent = (param['last-price'] - param.purchase).toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 })
@@ -42,84 +43,24 @@ function renderPortfolio(param) {
     //profit table 
     const profitTable = document.createElement('td')
     profitTable.textContent = ((param['last-price'] - param.purchase) * param.qty).toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 })
+    // Add Green/Red Color to Profit / Loss
+    param['last-price'] > param.purchase ? profitTable.style.color = "green" : profitTable.style.color = "red";
 
-    function tableColor() {
-        if (param['last-price'] < param.purchase) {
-
-            return profitTable.style.color = "red"
-        } else if (param['last-price'] > param.purchase) {
-            return profitTable.style.color = "green"
-        } else {
-            return profitTable.style.color = "grey"
-        }
-    }
-    tableColor()
-
-    const happyMemeArray = [
-        {
-            name: "Wall Street Bets",
-            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqOBdQojktUASuWZyuFK8klyfaXk5MSjlPCA&usqp=CAU"
-        },
-        {
-            name: "Jonah Hill",
-            image: "https://www.happierhuman.com/wp-content/uploads/2022/04/happy-memes-winkgo-oh-my-god.jpg"
-        },
-        {
-            name: "Opray",
-            image: "https://imgflip.com/s/meme/Oprah-You-Get-A.jpg"
-        },
-        {
-            name: "Obama",
-            image: "https://i.imgflip.com/6vq4y2.jpg"
-        }
-    ]
-
-    const sadMemeArray = [
-        {
-            name: "Toy Story",
-            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiGYbYnp3n24ab7Tmw4LOzgaph7_nrsyrMew&usqp=CAU"
-        },
-        {
-            name: "Tom the Cat",
-            image: "https://i.imgflip.com/6vq48z.jpg"
-        },
-        {
-            name: "Dog in Fire",
-            image: "https://static01.nyt.com/images/2016/08/05/us/05onfire1_xp/05onfire1_xp-superJumbo-v2.jpg"
-        },
-        {
-            name: "Spongebob",
-            image: "https://pbs.twimg.com/media/EDJP9uVU0AArmSL?format=jpg&name=small"
-        }
-    ];
-
-    const centerImage = document.querySelector(".meme-insert");
-
-    function memeGen() {
-        if (param['last-price'] < param.purchase) {
-            let displaySadMemes = sadMemeArray[Math.floor(Math.random() * sadMemeArray.length)];
-            centerImage.src = displaySadMemes.image;
-        } else if (param['last-price'] > param.purchase) {
-            let displayHappyMemes = happyMemeArray[Math.floor(Math.random() * happyMemeArray.length)];
-            centerImage.src = displayHappyMemes.image;
-        }
-    }
-    memeGen()
-
+    //  Delete stock from my portfolio and update db.json
     const deleteBtn = document.createElement('button')
     deleteBtn.className = "btn btn-warning"
     deleteBtn.innerText = 'x'
     deleteBtn.style.color = "red"
     deleteBtn.addEventListener('click', () => {
-
+        fetch(`http://localhost:3000/myportfolio/${stonkTable.dataset.id}`, { method: 'DELETE' })
         tr.remove()
     })
 
+    //Refresh stock price in my portfolio and update db.json
     const refresh = document.createElement('button');
     refresh.className = "btn btn-info"
     refresh.innerText = "Refresh"
-    refresh.addEventListener('click', (e) => {
-        e.preventDefault()
+    refresh.addEventListener('click', () => {
         ticker = stonkTable.id
         fetch(`https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=${ticker}&market=USD&apikey=${apikey}`)
             .then(res => res.json())
@@ -129,16 +70,51 @@ function renderPortfolio(param) {
 
             })
 
-        // lastPrice.textContent = parseInt(secLast.textContent).toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2})
+            // lastPrice.textContent = parseInt(secLast.textContent).toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2})
 
 
 
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                lastRefreshed = data['Meta Data']['6. Last Refreshed'].substring(0, 10)
+
+                const newLastPrice = Number(data['Time Series (Digital Currency Daily)'][lastRefreshed]['4a. close (USD)'])
+
+                lastPriceTable.textContent = newLastPrice.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 });
+
+                change.textContent = (newLastPrice - param.purchase).toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 })
+
+                percentChange.textContent = ((newLastPrice - param.purchase) * 100 / param.purchase).toFixed(2) + " %"
+
+                profitTable.textContent = ((newLastPrice - param.purchase) * param.qty).toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 })
+
+                newLastPrice > param.purchase ? profitTable.style.color = "green" : profitTable.style.color = "red";
+
+                refreshJSON(newLastPrice, param.id);
+            })
     })
 
-    tr.append(stonkTable, myPriceTable, qtyTable, lastPrice, change, percentChange, profitTable, deleteBtn, refresh)
+    tr.append(stonkTable, myPriceTable, qtyTable, lastPriceTable, change, percentChange, profitTable, deleteBtn, refresh)
     tBody.append(tr)
     bottomTable.append(tBody)
 
+}
+
+// Update Json with refresh
+
+function refreshJSON(updatePrice, id) {
+    const configObj = {
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+        },
+        body: JSON.stringify({
+            "last-price": updatePrice,
+        })
+    }
+    fetch(`http://localhost:3000/myportfolio/${id}`, configObj)
 }
 //Create table
 myForm.addEventListener('submit', (e) => {
@@ -147,12 +123,11 @@ myForm.addEventListener('submit', (e) => {
         "stonk": e.target.stonk.value,
         "purchase": e.target.price.value,
         "qty": e.target.quantity.value,
-        "last-price": secLast.textContent,
+        "last-price": cryptoPrice,
     }
     renderPortfolio(stonkObj)
 
     //Post to db.json
-    //const stonkTable = document.getElementById(`${e.target.stonk.value}`)
     const configObj = {
         method: 'POST',
         headers: {
@@ -163,7 +138,7 @@ myForm.addEventListener('submit', (e) => {
             "stonk": e.target.stonk.value,
             "purchase": Number(e.target.price.value),
             "qty": Number(e.target.quantity.value),
-            "last-price": Number(secLast.textContent)
+            "last-price": cryptoPrice
         })
     }
 
