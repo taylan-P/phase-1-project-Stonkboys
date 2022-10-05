@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             console.log(data)
             data.forEach(stonk => renderPortfolio(stonk))
+            totalProfitLoss()
         })
         .catch(err => console.error(err))
 })
@@ -54,6 +55,7 @@ function renderPortfolio(param) {
     deleteBtn.addEventListener('click', () => {
         fetch(`http://localhost:3000/myportfolio/${param.id}`, { method: 'DELETE' })
         tr.remove()
+        totalProfitLoss()
     })
 
     // Refresh stock price in my portfolio and update db.json
@@ -80,12 +82,16 @@ function renderPortfolio(param) {
                 newLastPrice > param.purchase ? profitTable.style.color = "green" : profitTable.style.color = "red";
 
                 refreshJSON(newLastPrice, param.id);
+
+                totalProfitLoss()
             })
     })
 
     tr.append(stonkTable, myPriceTable, qtyTable, lastPriceTable, change, percentChange, profitTable, deleteBtn, refresh)
     tBody.append(tr)
     bottomTable.append(tBody)
+
+    totalProfitLoss()
 
 }
 
@@ -152,7 +158,26 @@ myForm.addEventListener('submit', (e) => {
             const profitOrLoss = (refreshedPrice > purchase) ? "profit" : "loss";
             generateMeme(profitOrLoss)
         })
+    totalProfitLoss()
     myForm.reset();
 })
 
 
+// Produces total Profit & Loss Function
+let totalProfit;
+function totalProfitLoss() {
+  fetch("http://localhost:3000/myportfolio/")
+  .then(res => res.json())
+  .then(data => {
+    totalProfit = data.reduce((prev,curr) => prev + (curr['last-price']-curr.purchase)*(curr.qty), 0)
+    renderTotalProfit()
+  })
+}
+
+function renderTotalProfit() {
+  const color = totalProfit > 0 ? "green" : "red" ;
+  const totalPnLNum = totalProfit.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 })
+  const totalPnLElement = document.getElementById("totalProfit")
+  totalPnLElement.textContent = `${totalPnLNum}`
+  totalPnLElement.style.color = color;
+} 
