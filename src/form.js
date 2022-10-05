@@ -25,7 +25,6 @@ function renderPortfolio(param) {
     const myPriceTable = document.createElement('td')
     myPriceTable.textContent = param.purchase
    
-
     const qtyTable = document.createElement('td')
     qtyTable.textContent = param.qty
 
@@ -40,17 +39,8 @@ function renderPortfolio(param) {
 
     const profitTable = document.createElement('td')
     profitTable.textContent = ((param['last-price'] - param.purchase )* param.qty).toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2})
-    function tableColor() {
-        if( param['last-price'] < param.purchase ) {
-        return profitTable.style.color = "red"
-    } else if( param['last-price'] > param.purchase ) {
-        return profitTable.style.color = "green"
-    } else {
-        return profitTable.style.color = "grey"
-    }
-    }
-    tableColor()
-    
+    // Add Green/Red Color to Profit / Loss
+    param['last-price'] > param.purchase ? profitTable.style.color = "green" : profitTable.style.color = "red";
     
     //  Delete stock from my portfolio and update db.json
     const deleteBtn = document.createElement('button')
@@ -62,7 +52,6 @@ function renderPortfolio(param) {
         tr.remove()
     })
 
-
     //Refresh stock price in my portfolio and update db.json
     const refresh = document.createElement('button');
     refresh.className = "btn btn-info"
@@ -72,12 +61,22 @@ function renderPortfolio(param) {
         fetch(`https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=${ticker}&market=USD&apikey=${apikey}`)
         .then(res => res.json())
         .then(data => {
-            debugger;
             console.log(data)
             lastRefreshed = data['Meta Data']['6. Last Refreshed'].substring(0, 10)
-            lastPriceTable.textContent = data['Time Series (Digital Currency Daily)'][lastRefreshed]['4a. close (USD)']
-            change.textContent = (param['last-price'] - param.purchase).toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2})
+
+            const newLastPrice = Number(data['Time Series (Digital Currency Daily)'][lastRefreshed]['4a. close (USD)'])
             
+            lastPriceTable.textContent = newLastPrice.toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2});
+            
+            change.textContent = (newLastPrice - param.purchase).toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2}) 
+
+            percentChange.textContent = ((newLastPrice - param.purchase)*100/param.purchase).toFixed(2)+" %"
+
+            profitTable.textContent = ((newLastPrice - param.purchase)*param.qty).toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2})
+
+            newLastPrice > param.purchase ? profitTable.style.color = "green" : profitTable.style.color = "red";
+
+            refreshJSON(newLastPrice, param.id);
         })
     })
 
@@ -85,6 +84,22 @@ function renderPortfolio(param) {
     tBody.append(tr)
     bottomTable.append(tBody)
 
+}
+
+// Update Json with refresh
+
+function refreshJSON(updatePrice, id) {
+    const configObj = {
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json",
+            Accept : "application/json"
+        },
+        body: JSON.stringify({
+            "last-price": updatePrice,
+        })
+    }
+    fetch(`http://localhost:3000/myportfolio/${id}`, configObj)
 }
 //Create table
 myForm.addEventListener('submit', (e) => {
@@ -98,7 +113,6 @@ myForm.addEventListener('submit', (e) => {
     renderPortfolio(stonkObj)
 
     //Post to db.json
-    //const stonkTable = document.getElementById(`${e.target.stonk.value}`)
     const configObj = {
         method: 'POST',
         headers: {
