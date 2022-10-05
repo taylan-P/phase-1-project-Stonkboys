@@ -95,7 +95,7 @@ function renderChart(xAxis, yAxis) {
   const data = {
     labels: xAxis,
     datasets: [{
-      label: `${ticker} Price Data`,
+      label: `${ticker} Daily Price Data`,
       backgroundColor: randomColor(),
       borderColor: randomColor(),
       data: yAxis,

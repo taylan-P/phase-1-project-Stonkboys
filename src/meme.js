@@ -26,7 +26,7 @@ let displayHappyMemes;
 const sadMemeArray = [
     {
         name: "Toy Story",
-        image: "https://imgflip.com/i/6vq14h"
+        image: "https://i.imgflip.com/6vq14h.jpg"
     },
     {
         name: "Tom the Cat",

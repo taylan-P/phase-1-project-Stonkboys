@@ -2,6 +2,7 @@ const myForm = document.querySelector('#form');
 const bottomTable = document.querySelector('#bottom-table');
 const tBody = document.querySelector('tbody');
 const deleteContainer = document.querySelector('#delete-container')
+let jsonServerLen;
 
 //Load my Portfolio from db.json
 document.addEventListener('DOMContentLoaded', () => {
@@ -30,22 +31,22 @@ function renderPortfolio(param) {
     qtyTable.textContent = param.qty
 
     const lastPriceTable = document.createElement('td')
-    lastPriceTable.textContent = param['last-price'].toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 })
+    lastPriceTable.textContent = param['last-price'].toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: (param['last-price'] < 1 ? 4 : 2) })
 
     const change = document.createElement('td')
-    change.textContent = (param['last-price'] - param.purchase).toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 })
+    change.textContent = (param['last-price'] - param.purchase).toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: (param['last-price'] < 1 ? 4 : 2) })
 
-    //percent of change 
+    // Percent of change 
     const percentChange = document.createElement('td')
     percentChange.textContent = ((param['last-price'] - param.purchase) * 100 / param.purchase).toFixed(2) + " %"
 
-    //profit table 
+    // Profit table 
     const profitTable = document.createElement('td')
     profitTable.textContent = ((param['last-price'] - param.purchase) * param.qty).toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 })
     // Add Green/Red Color to Profit / Loss
     param['last-price'] > param.purchase ? profitTable.style.color = "green" : profitTable.style.color = "red";
 
-    //  Delete stock from my portfolio and update db.json
+    // Delete stock from my portfolio and update db.json
     const deleteBtn = document.createElement('button')
     deleteBtn.className = "btn btn-warning"
     deleteBtn.innerText = 'x'
@@ -55,25 +56,18 @@ function renderPortfolio(param) {
         tr.remove()
     })
 
-    //Refresh stock price in my portfolio and update db.json
+    // Refresh stock price in my portfolio and update db.json
     const refresh = document.createElement('button');
     refresh.className = "btn btn-info"
     refresh.innerText = "Refresh"
     refresh.addEventListener('click', () => {
         ticker = stonkTable.id
-        fetch(`https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=${ticker}&market=USD&apikey=${apikey}`)
-            // .then(res => res.json())
-            // .then(data => {
-            //     console.log(data)
-            //     lastPrice.textContent = data['Time Series (Digital Currency Daily)'][lastRefreshed]['4a. close (USD)']
-            // })
-
+        fetch(`https://www.alphavantage.co/query?function=CRYPTO_INTRADAY&symbol=${ticker}&market=USD&interval=1min&apikey=${apikey}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data)
-                lastRefreshed = data['Meta Data']['6. Last Refreshed'].substring(0, 10)
-
-                const newLastPrice = Number(data['Time Series (Digital Currency Daily)'][lastRefreshed]['4a. close (USD)'])
+                lastRefreshed = data['Meta Data']['6. Last Refreshed']
+                const newLastPrice = Number(data['Time Series Crypto (1min)'][lastRefreshed]['4. close'])
 
                 lastPriceTable.textContent = newLastPrice.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 });
 
@@ -96,7 +90,6 @@ function renderPortfolio(param) {
 }
 
 // Update Json with refresh
-
 function refreshJSON(updatePrice, id) {
     const configObj = {
         method: 'PATCH',
@@ -110,56 +103,56 @@ function refreshJSON(updatePrice, id) {
     }
     fetch(`http://localhost:3000/myportfolio/${id}`, configObj)
 }
-//Create table
+// Create table
 myForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
     ticker = e.target.stonk.value;
     let qty = e.target.quantity.value;
     let purchase = e.target.price.value;
-    let newLastPrice;
+    let refreshedPrice;
 
-    fetch(`https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=${ticker}&market=USD&apikey=${apikey}`)
-    .then(res => res.json())
-    .then(data => {
-        console.log(data)
-        lastRefreshed = data['Meta Data']['6. Last Refreshed'].substring(0, 10)
+    fetch(`https://www.alphavantage.co/query?function=CRYPTO_INTRADAY&symbol=${ticker}&market=USD&interval=1min&apikey=${apikey}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            lastRefreshed = data['Meta Data']['6. Last Refreshed']
 
-        newLastPrice = Number(data['Time Series (Digital Currency Daily)'][lastRefreshed]['4a. close (USD)'])
+            refreshedPrice = Number(data['Time Series Crypto (1min)'][lastRefreshed]['4. close'])
 
-        const stonkObj = {
-            "stonk": ticker,
-            "purchase": purchase,
-            "qty": qty,
-            "last-price": newLastPrice,
-        }
-        renderPortfolio(stonkObj)
+            // Post to db.json
+            const configObj = {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json"
+                },
+                body: JSON.stringify({
+                    "stonk": ticker,
+                    "purchase": Number(purchase),
+                    "qty": Number(qty),
+                    "last-price": refreshedPrice
+                })
+            }
 
-        const profitOrLoss = (newLastPrice > purchase) ? "profit" : "loss";
-        generateMeme(profitOrLoss)
-    
-        //Post to db.json
-        const configObj = {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json"
-            },
-            body: JSON.stringify({
-                "stonk": ticker,
-                "purchase": Number(purchase),
-                "qty": Number(qty),
-                "last-price": newLastPrice
-            })
-        }
-    
-        fetch("http://localhost:3000/myportfolio/", configObj)
-            .then(res => res.json())
-            .then(console.log)
+            fetch("http://localhost:3000/myportfolio/", configObj)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
 
-    })
+                    const stonkObj = {
+                        "stonk": ticker,
+                        "purchase": purchase,
+                        "qty": qty,
+                        "last-price": refreshedPrice,
+                        "id": data.id
+                    }
+                    renderPortfolio(stonkObj)
+                })
+            const profitOrLoss = (refreshedPrice > purchase) ? "profit" : "loss";
+            generateMeme(profitOrLoss)
+        })
     myForm.reset();
-
 })
 
 
