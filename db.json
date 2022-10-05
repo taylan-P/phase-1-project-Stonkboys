@@ -20,6 +20,20 @@
       "qty": 20500,
       "last-price": 0.4766,
       "id": 3
+    },
+    {
+      "stonk": "SOL",
+      "purchase": 20,
+      "qty": 45,
+      "last-price": 33.98,
+      "id": 4
+    },
+    {
+      "stonk": "SOL",
+      "purchase": 53,
+      "qty": 22,
+      "last-price": 33.98,
+      "id": 5
     }
   ]
 }
