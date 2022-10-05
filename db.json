@@ -4,28 +4,28 @@
       "stonk": "BTC",
       "purchase": 16000,
       "qty": 4,
-      "last-price": 20210.81,
+      "last-price": 20016.61,
       "id": 1
     },
     {
       "stonk": "ETH",
       "purchase": 33,
       "qty": 33,
-      "last-price": 1358.52,
+      "last-price": 1347.28,
       "id": 2
     },
     {
       "stonk": "XRP",
       "purchase": 0.15,
       "qty": 20500,
-      "last-price": 0.4766,
+      "last-price": 0.4978,
       "id": 3
     },
     {
-      "stonk": "SOL",
-      "purchase": 20,
-      "qty": 45,
-      "last-price": 33.98,
+      "stonk": "ADA",
+      "purchase": 0.75,
+      "qty": 10000,
+      "last-price": 0.4303,
       "id": 4
     },
     {
