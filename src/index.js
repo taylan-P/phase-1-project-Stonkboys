@@ -27,7 +27,7 @@ searchForm.addEventListener("submit", e => {
   } else if (prodType.value === "Stocks") {
     getPriceData(stockSearch, ticker); // Have not yet coded stock functionality
   }
-  generateMeme()
+  // generateMeme()
 })
 
 function getPriceData(searchParam, ticker) {
@@ -63,7 +63,7 @@ function renderCryptoInfo() {
   const lastPrice = parseFloat(returnDailyData['Time Series (Digital Currency Daily)'][lastRefreshed]['4a. close (USD)']);
 
   cryptoPrice = lastPrice;
-  secLast.textContent = lastPrice.toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2});
+  secLast.textContent = lastPrice.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 });
 
   volume.textContent = parseFloat(returnDailyData['Time Series (Digital Currency Daily)'][lastRefreshed]['5. volume']).toFixed(2);
 
@@ -74,7 +74,7 @@ function renderCryptoInfo() {
   const secYtdyPrice = parseFloat(returnDailyData['Time Series (Digital Currency Daily)'][yesterday]['4a. close (USD)']);
   let arrow;
   lastPrice > secYtdyPrice ? arrow = upStr : arrow = downStr;
-  secChange.textContent = `${arrow}`+Math.abs((lastPrice - secYtdyPrice).toFixed(4));
+  secChange.textContent = `${arrow}` + Math.abs((lastPrice - secYtdyPrice).toFixed(4));
   secChange.style.color = (lastPrice > secYtdyPrice) ? "green" : "red";
   secChange.dataset.value = (lastPrice >= secYtdyPrice) ? "pos" : "neg";
 
@@ -113,64 +113,5 @@ function renderChart(xAxis, yAxis) {
     config
   );
   document.getElementById("myChart").className = "active";
-}
-
-
-
-//happy 
-
-const happyMemeArray = [
-  {
-    name: "Wall Street Bets",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqOBdQojktUASuWZyuFK8klyfaXk5MSjlPCA&usqp=CAU"
-  },
-  {
-    name: "Jonah Hill",
-    image: "https://www.happierhuman.com/wp-content/uploads/2022/04/happy-memes-winkgo-oh-my-god.jpg"
-  },
-  {
-    name: "Opray",
-    image: "https://imgflip.com/s/meme/Oprah-You-Get-A.jpg"
-  },
-  {
-    name: "Obama",
-    image: "https://i.imgflip.com/6vq4y2.jpg"
-  }
-]
-
-let displayHappyMemes;
-
-
-//sad
-const sadMemeArray = [
-  {
-    name: "Toy Story",
-    image: "https://imgflip.com/i/6vq14h"
-  },
-  {
-    name: "Tom the Cat",
-    image: "https://i.imgflip.com/6vq48z.jpg"
-  },
-  {
-    name: "Shooting yourself",
-    image: "https://i.imgflip.com/6vq5h5.jpg"
-  },
-  {
-    name: "Spongebob",
-    image: "https://pbs.twimg.com/media/EDJP9uVU0AArmSL?format=jpg&name=small"
-  }
-]
-
-let displaySadMemes;
-
-function generateMeme() {
-  displayHappyMemes = happyMemeArray[Math.floor(Math.random() * 3)].image;
-  displaySadMemes = sadMemeArray[Math.floor(Math.random() * 3)].image;
-  
-  if(secChange.dataset.value === "pos") {
-    memeImage.src = displayHappyMemes; 
-  } else {
-    memeImage.src = displaySadMemes;
-  }
 }
 
