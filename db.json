@@ -30,17 +30,10 @@
     },
     {
       "stonk": "SOL",
-      "purchase": 0.5,
-      "qty": 250,
-      "last-price": 33.76,
-      "id": 6
-    },
-    {
-      "stonk": "DOGE",
-      "purchase": 0.01,
-      "qty": 20000,
-      "last-price": 0.06417,
-      "id": 7
+      "purchase": 53,
+      "qty": 22,
+      "last-price": 33.98,
+      "id": 5
     }
   ]
 }
