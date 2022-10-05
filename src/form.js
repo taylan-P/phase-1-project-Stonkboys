@@ -127,6 +127,10 @@ myForm.addEventListener('submit', (e) => {
     }
     renderPortfolio(stonkObj)
 
+    const profitOrLoss = (cryptoPrice > e.target.price.value) ? "profit" : "loss";
+    console.log(profitOrLoss)
+    generateMeme(profitOrLoss)
+
     //Post to db.json
     const configObj = {
         method: 'POST',

@@ -27,7 +27,7 @@ searchForm.addEventListener("submit", e => {
   } else if (prodType.value === "Stocks") {
     getPriceData(stockSearch, ticker); // Have not yet coded stock functionality
   }
-  generateMeme()
+  // generateMeme()
 })
 
 function getPriceData(searchParam, ticker) {

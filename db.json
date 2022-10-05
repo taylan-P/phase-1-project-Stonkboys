@@ -20,6 +20,27 @@
       "qty": 4,
       "last-price": 20210.81,
       "id": 4
+    },
+    {
+      "stonk": "BTC",
+      "purchase": 30000,
+      "qty": 10,
+      "last-price": 20210.81,
+      "id": 5
+    },
+    {
+      "stonk": "BTC",
+      "purchase": 35000,
+      "qty": 10,
+      "last-price": 20210.81,
+      "id": 6
+    },
+    {
+      "stonk": "BTC",
+      "purchase": 9999,
+      "qty": 12,
+      "last-price": 20210.81,
+      "id": 7
     }
   ]
 }
