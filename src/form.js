@@ -39,7 +39,6 @@ function renderPortfolio(param) {
     const percentChange = document.createElement('td')
     percentChange.textContent = ((param['last-price'] - param.purchase) * 100 / param.purchase).toFixed(2) + " %"
 
-
     //profit table 
     const profitTable = document.createElement('td')
     profitTable.textContent = ((param['last-price'] - param.purchase) * param.qty).toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 })
@@ -52,7 +51,7 @@ function renderPortfolio(param) {
     deleteBtn.innerText = 'x'
     deleteBtn.style.color = "red"
     deleteBtn.addEventListener('click', () => {
-        fetch(`http://localhost:3000/myportfolio/${stonkTable.dataset.id}`, { method: 'DELETE' })
+        fetch(`http://localhost:3000/myportfolio/${param.id}`, { method: 'DELETE' })
         tr.remove()
     })
 
@@ -63,16 +62,11 @@ function renderPortfolio(param) {
     refresh.addEventListener('click', () => {
         ticker = stonkTable.id
         fetch(`https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=${ticker}&market=USD&apikey=${apikey}`)
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                lastPrice.textContent = data['Time Series (Digital Currency Daily)'][lastRefreshed]['4a. close (USD)']
-
-            })
-
-            // lastPrice.textContent = parseInt(secLast.textContent).toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2})
-
-
+            // .then(res => res.json())
+            // .then(data => {
+            //     console.log(data)
+            //     lastPrice.textContent = data['Time Series (Digital Currency Daily)'][lastRefreshed]['4a. close (USD)']
+            // })
 
             .then(res => res.json())
             .then(data => {
@@ -119,37 +113,51 @@ function refreshJSON(updatePrice, id) {
 //Create table
 myForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const stonkObj = {
-        "stonk": e.target.stonk.value,
-        "purchase": e.target.price.value,
-        "qty": e.target.quantity.value,
-        "last-price": cryptoPrice,
-    }
-    renderPortfolio(stonkObj)
 
-    const profitOrLoss = (cryptoPrice > e.target.price.value) ? "profit" : "loss";
-    console.log(profitOrLoss)
-    generateMeme(profitOrLoss)
+    ticker = e.target.stonk.value;
+    let qty = e.target.quantity.value;
+    let purchase = e.target.price.value;
+    let newLastPrice;
 
-    //Post to db.json
-    const configObj = {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-        },
-        body: JSON.stringify({
-            "stonk": e.target.stonk.value,
-            "purchase": Number(e.target.price.value),
-            "qty": Number(e.target.quantity.value),
-            "last-price": cryptoPrice
-        })
-    }
+    fetch(`https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=${ticker}&market=USD&apikey=${apikey}`)
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+        lastRefreshed = data['Meta Data']['6. Last Refreshed'].substring(0, 10)
 
-    fetch("http://localhost:3000/myportfolio/", configObj)
-        .then(res => res.json())
-        .then(console.log)
+        newLastPrice = Number(data['Time Series (Digital Currency Daily)'][lastRefreshed]['4a. close (USD)'])
 
+        const stonkObj = {
+            "stonk": ticker,
+            "purchase": purchase,
+            "qty": qty,
+            "last-price": newLastPrice,
+        }
+        renderPortfolio(stonkObj)
+
+        const profitOrLoss = (newLastPrice > purchase) ? "profit" : "loss";
+        generateMeme(profitOrLoss)
+    
+        //Post to db.json
+        const configObj = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify({
+                "stonk": ticker,
+                "purchase": Number(purchase),
+                "qty": Number(qty),
+                "last-price": newLastPrice
+            })
+        }
+    
+        fetch("http://localhost:3000/myportfolio/", configObj)
+            .then(res => res.json())
+            .then(console.log)
+
+    })
     myForm.reset();
 
 })
