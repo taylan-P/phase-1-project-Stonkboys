@@ -14,6 +14,7 @@ const volume = document.getElementById("volume");
 const upStr = '\u{021E7}';
 const downStr = '\u{021E9}';
 const memeImage = document.getElementById("meme-img");
+const span = document.createElement("span");
 
 // Search Functionality
 searchForm.addEventListener("submit", e => {
@@ -115,3 +116,63 @@ function renderChart(xAxis, yAxis) {
   document.getElementById("myChart").className = "active";
 }
 
+// Add Event Listeners to Table Headings and invoke sortTable on click
+document.querySelectorAll("table#bottom-table tbody tr th").forEach((th, i) => th.addEventListener("click", () => {
+    sortTable(i);
+    addArrow(th);
+}))
+
+// Sort Table Function
+let sorted = false;
+
+function sortTable(column) {
+  let table, rows, switching, i, x, y, shouldSwitch, xVal, yVal;
+  table = document.getElementById("bottom-table");
+  switching = true;
+
+  while (switching) {
+    switching = false;
+    rows = table.rows;
+
+    for(i = 1; i < (rows.length - 1); i++) {
+      shouldSwitch = false;
+      x = rows[i].getElementsByTagName("td")[column];
+      y = rows[i + 1].getElementsByTagName("td")[column];
+
+      if(column === 0) {
+        xVal = x.textContent;
+        yVal = y.textContent;
+      } else {
+        xVal = parseFloat(x.textContent.replace("$", "").replaceAll(",", ""));
+        yVal = parseFloat(y.textContent.replace("$", "").replaceAll(",", ""));
+      }
+      
+      if (sorted) {
+        if (xVal > yVal) {
+          shouldSwitch = true;
+          break;
+        }
+      } else if (!sorted) {
+        if (xVal < yVal) {
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+  if (shouldSwitch) {
+    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+    switching = true;
+  }}
+  sorted = !sorted;
+}
+
+function addArrow(th) {
+  span.textContent = "";  
+  if (sorted) {
+    span.textContent = '\u{25B2}';
+    th.append(span);
+  } else if (!sorted) {
+    span.textContent = '\u{25BC}';
+    th.append(span); 
+  }
+}
