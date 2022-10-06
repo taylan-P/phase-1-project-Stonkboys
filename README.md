@@ -19,6 +19,10 @@ User functionality:
     - each refresh button will update each line of crypto currency to the most recent available price (1 min intervals) [Note: Button is added individually due to API limitations  (see details below)
     - each delete button will remove each lot of crypto and send a delete fetch to json
     - both refresh and delete will update the total profit and loss value at the bottom of the table
+    - Clicking on "Stonk" heading will sort the table by alphabetical order
+    - Clicking on each of the table headings (Purchase Price, Qty, Current Price, Change $, Change %, Profit/Loss) will sort the table from highest to lowest for that column. Clicking on the heading again will sort the table from lowest to highest.
+    - An up/down arrow will appear next to the table heading to indicate which column is being sorted
+
 
 Limitations:
 * JSON server needs to be run via localhost:3000 in order for back end functionality to persist;
