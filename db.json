@@ -4,21 +4,14 @@
       "stonk": "BTC",
       "purchase": 16000,
       "qty": 4,
-      "last-price": 20016.61,
+      "last-price": 20091.94,
       "id": 1
-    },
-    {
-      "stonk": "ETH",
-      "purchase": 33,
-      "qty": 33,
-      "last-price": 1347.28,
-      "id": 2
     },
     {
       "stonk": "XRP",
       "purchase": 0.15,
       "qty": 20500,
-      "last-price": 0.4978,
+      "last-price": 0.4973,
       "id": 3
     },
     {
@@ -29,11 +22,25 @@
       "id": 4
     },
     {
-      "stonk": "SOL",
-      "purchase": 53,
-      "qty": 22,
-      "last-price": 33.98,
-      "id": 5
+      "stonk": "ETH",
+      "purchase": 1025,
+      "qty": 32.5,
+      "last-price": 1363.14,
+      "id": 6
+    },
+    {
+      "stonk": "DOGE",
+      "purchase": 0.1,
+      "qty": 25000,
+      "last-price": 0.06398,
+      "id": 7
+    },
+    {
+      "stonk": "BTC",
+      "purchase": 16000,
+      "qty": 4,
+      "last-price": 20036.87,
+      "id": 8
     }
   ]
 }
