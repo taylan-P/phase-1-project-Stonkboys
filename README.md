@@ -1,9 +1,8 @@
 # phase-1-project-Stonkboys
-phase 1 project repo
 
 Software Engineering BootCamp at Flatiron School - Phase 1 Project
 
-Stonk Boyz: 
+Stonk Boyz - contributors: Bernard, Chris, Dulat, Taylan
 
 Functionality:
 
