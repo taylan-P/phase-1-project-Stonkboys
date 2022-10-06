@@ -12,136 +12,145 @@
 </head>
 
 <body>
-    <header class="container-fluid col-sm-12 p-3 border bg-dark text-light">
-        <img src="images/Screen Shot 2022-10-02 at 7.47.13 PM.png" width="50" height="" class="img-fluid">
-        <img src="images/stonkboyz.png" class="img-fluid">
+    <div class="container-fluid bg-black">
 
-    </header>
-
-    <div class="input-group container-fluid">
-
-        <form class="form-outline" id="searchForm">
-            <div class="row">
+        <!-- <header class="container-fluid col-sm-12 p-3 border bg-dark text-light">
+                <img src="images/Screen Shot 2022-10-02 at 7.47.13 PM.png" width="50" height="" class="img-fluid">
+                <img src="images/stonkboyz.png" class="img-fluid">
+            </header> -->
+        <header class="row p-1 bg-secondary bg-opacity-25">
+            <div class="col-fluid">
                 <div class="col-sm">
-                    <select class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Type
-                        <option value="Crypto">Crypto</option>
-                        <!-- <option value="Crypto">Stocks</option> [Temp Disabled ]-->
-                    </select>
-                </div>
-                <div class="col-sm">
-                    <input type="search" id="form1" class="form-control" placeholder="search">
-                </div>
-                <div class="col-sm">
-                    <input type="submit" class="btn btn-primary col-sm" value="Search">
+                    <img src="images/Screen Shot 2022-10-02 at 7.47.13 PM.png" width="100" height="" class="img-fluid">
+                    <img src="images/stonkboyz.png">
                 </div>
             </div>
-        </form>
+        </header>
 
-    </div>
-    <div class="container-fluid p-3 border bg-light">
-        <div class="row">
-            <div class="col-sm">
-                <table class="table table-dark">
-                    <thead>
-                        <tr>
-                            <th scope="col">Name: </th>
-                            <td id="secName"></td>
-                        </tr>
-                        <tr>
-                            <th scope="col">Code: </th>
-                            <td id="secCode"></td>
-                        </tr>
-                        <tr>
-                            <th scope="col">Market: </th>
-                            <td id="secMarket"></td>
-                        </tr>
-                        <tr>
-                            <th scope="col">Date: </th>
-                            <td id="secTime"></td>
-                        </tr>
-                        <tr>
-                            <th scope="col">Last $ </th>
-                            <td id="secLast"></td>
-                        </tr>
-                        <tr>
-                            <th scope="col">↑ / ↓ (24 hrs)</th>
-                            <td id="secChange"></td>
-                        </tr>
-                        <tr>
-                            <th scope="col">Volume: </th>
-                            <td id="volume"></td>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-            <div class="col-sm">
-                <canvas id="myChart"></canvas>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="container-fluid col-sm-12 p-3 border bg-dark text-light">
-        <div class="col-sm-12">MyCalculator</div>
-    </div>
-    <div class="row bg-dark">
-        <div class="container-fluid p-3 border-light col-sm-4 bg-dark">
-            <form id="form">
-                <div class="form-group">
-                    <label class="text-light">Stonk</label>
-                    <input type="text" class="form-control" id="stonk" placeholder="Enter Stonk" required>
+        <div class="row col-sm-fluid bg-secondary bg-opacity-25 p-2">
+            <form class="form-outline" id="searchForm">
+                <div class="row">
+                    <div class="col-sm-auto">
+                        <select class="btn bg-black text-info bg-opacity-25 dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Type
+                            <option value="Crypto">Crypto</option>
+                            <!-- <option value="Crypto">Stocks</option> [Temp Disabled ]-->
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="search" id="form1" class="form-control col-sm" placeholder="search">
+                    </div>
+                    <div class="col-sm-auto">
+                        <input type="submit" class="btn bg-black bg-opacity-50 text-info col-sm-auto" value="Search">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="text-light">Purchased Price</label>
-                    <input type="text" class="form-control" id="price" placeholder="Enter Price" required>
-                </div>
-                <div class="form-group">
-                    <label class="text-light">Quantity</label>
-                    <input type="text" class="form-control" id="quantity" placeholder="Enter Qty" required>
-                </div>
-                <button type="submit" id="submit-btn" class="btn btn-info">Evaluate</button>
             </form>
         </div>
-        <div class="container-fluid p-3 border-light col-sm-3">
-            <img class="meme-insert" width="250" height="250" id="meme-img">
+
+        <div class="container-fluid p-3  bg-black">
+            <div class="row">
+                <div class="col-sm-auto">
+                    <table class="table table-bordered bg-black text-info text-opacity-75 border-warning">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name:</th>
+                                <td id="secName"></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">Code:</th>
+                                <td id="secCode"></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">Market:</th>
+                                <td id="secMarket"></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">Date:</th>
+                                <td id="secTime"></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">Last $</th>
+                                <td id="secLast"></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">↑ / ↓</th>
+                                <td id="secChange"></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">Volume:</th>
+                                <td id="volume"></td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="col-sm-8">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+
         </div>
 
-        <div class="container-fluid col-sm-12 p-3 border bg-dark text-light">
-            <div class="col-sm-12">MyPortfolio</div>
+        <div class="row cols-auto  p-3 border text-bg-dark">
+            <div class="">MyCalculator</div>
         </div>
-        <div class="container-fluid col-sm-12 ">
-            <table id="bottom-table" class="table bg-light">
-                <tbody>
-                    <tr>
-                        <th id="stonkSort">Stonk</th>
-                        <th id="purchaseSort">Purchase Price</th>
-                        <th id="qtySort">Qty</th>
-                        <th id="currSort">Current Price</th>
-                        <th id="chg$Sort">Change $</th>
-                        <th id="chg%Sort">Change %</th>
-                        <th id="profitSort">Profit/Loss</th>
-                        <th id="delete-container"></th>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table bg-light">
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><span>Total: </span><p  id="totalProfit"></p></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="row bg-dark">
+            <div class="container-fluid p-3 border-light col-sm-4 bg-dark">
+                <form id="form">
+                    <div class="form-group">
+                        <label class="text-light">Stonk</label>
+                        <input type="text" class="form-control" id="stonk" placeholder="Enter Stonk" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="text-light">Purchased Price</label>
+                        <input type="text" class="form-control" id="price" placeholder="Enter Price" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="text-light">Quantity</label>
+                        <input type="text" class="form-control" id="quantity" placeholder="Enter Qty" required>
+                    </div>
+                    <button type="submit" id="submit-btn" class="btn btn-info">Evaluate</button>
+                </form>
+            </div>
+            <div class="container-fluid p-3 border-light col-sm-3">
+                <img class="meme-insert" width="250" height="250" id="meme-img">
+            </div>
+            <div class="container-fluid col-sm-12 p-3 border bg-dark text-light">
+                <div class="col-sm-12">MyPortfolio</div>
+
+                <div class="container-fluid col-sm-12 ">
+                    <table id="bottom-table" class="table bg-light">
+                        <tbody>
+                            <tr>
+                                <th id="stonkSort">Stonk</th>
+                                <th id="purchaseSort">Purchase Price</th>
+                                <th id="qtySort">Qty</th>
+                                <th id="currSort">Current Price</th>
+                                <th id="chg$Sort">Change $</th>
+                                <th id="chg%Sort">Change %</th>
+                                <th id="profitSort">Profit/Loss</th>
+                                <th id="delete-container"></th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table bg-light">
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><span>Total: </span><p  id="totalProfit"></p></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <footer class="container-fluid col-sm-12 p-3 border bg-dark text-light">
+                    <div class="col-sm-12">COPYRIGHT Ⓒ 2022 <STRONG>STONK BOYZ.</STRONG> All RIGHTS RESERVED</div>
+                </footer>
+            </div>
         </div>
-        <footer class="container-fluid col-sm-12 p-3 border bg-dark text-light">
-            <div class="col-sm-12">COPYRIGHT Ⓒ 2022 <STRONG>STONK BOYZ.</STRONG> All RIGHTS RESERVED</div>
-        </footer>
 
 
 
