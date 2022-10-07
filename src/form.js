@@ -49,7 +49,7 @@ function renderPortfolio(param) {
 
     // Delete stock from my portfolio and update db.json
     const deleteBtn = document.createElement('button')
-    deleteBtn.className = "btn btn-warning"
+    deleteBtn.className = "btn btn-dark border border-info border-opacity-75 text-info"
     deleteBtn.innerText = 'x'
     deleteBtn.style.color = "red"
     deleteBtn.addEventListener('click', () => {
@@ -60,7 +60,7 @@ function renderPortfolio(param) {
 
     // Refresh stock price in my portfolio and update db.json
     const refresh = document.createElement('button');
-    refresh.className = "btn btn-info"
+    refresh.className = "btn btn-dark border border-info border-opacity-75 text-info"
     refresh.innerText = "Refresh"
     refresh.addEventListener('click', () => {
         ticker = stonkTable.id
@@ -113,7 +113,7 @@ function refreshJSON(updatePrice, id) {
 myForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    ticker = e.target.stonk.value;
+    ticker = e.target.stonk.value.toUpperCase();
     let qty = e.target.quantity.value;
     let purchase = e.target.price.value;
     let refreshedPrice;

@@ -15,13 +15,6 @@
       "id": 3
     },
     {
-      "stonk": "ADA",
-      "purchase": 0.75,
-      "qty": 10000,
-      "last-price": 0.4303,
-      "id": 4
-    },
-    {
       "stonk": "ETH",
       "purchase": 1025,
       "qty": 32.5,
@@ -29,18 +22,18 @@
       "id": 6
     },
     {
-      "stonk": "DOGE",
-      "purchase": 0.1,
-      "qty": 25000,
-      "last-price": 0.06398,
-      "id": 7
+      "stonk": "BTC",
+      "purchase": 12000,
+      "qty": 123,
+      "last-price": 19393.8,
+      "id": 11
     },
     {
       "stonk": "BTC",
-      "purchase": 16000,
-      "qty": 4,
-      "last-price": 20036.87,
-      "id": 8
+      "purchase": 25000,
+      "qty": 2,
+      "last-price": 19393.34,
+      "id": 12
     }
   ]
 }

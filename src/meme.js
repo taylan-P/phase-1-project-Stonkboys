@@ -16,7 +16,11 @@ const happyMemeArray = [
     {
         name: "Obama",
         image: "https://i.imgflip.com/6vq4y2.jpg"
-    }
+    },
+    {
+        name: "Joker",
+        image: "https://pyxis.nymag.com/v1/imgs/c3c/1f5/4540b074107d531f234c09f3f8db47a4d5-23-joker-stairs-dance.rsquare.w700.jpg"
+    },
 ]
 
 let displayHappyMemes;
@@ -45,7 +49,7 @@ const sadMemeArray = [
 let displaySadMemes;
 
 function generateMeme(didIMakeMoney) {
-    displayHappyMemes = happyMemeArray[Math.floor(Math.random() * 3)].image;
+    displayHappyMemes = happyMemeArray[Math.floor(Math.random() * 4)].image;
     displaySadMemes = sadMemeArray[Math.floor(Math.random() * 3)].image;
 
     if (didIMakeMoney === "profit") {

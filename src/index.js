@@ -117,7 +117,7 @@ function renderChart(xAxis, yAxis) {
 }
 
 // Add Event Listeners to Table Headings and invoke sortTable on click
-document.querySelectorAll("table#bottom-table tbody tr th").forEach((th, i) => th.addEventListener("click", () => {
+document.querySelectorAll("table#bottom-table thead tr th").forEach((th, i) => th.addEventListener("click", () => {
     sortTable(i);
     addArrow(th);
 }))
